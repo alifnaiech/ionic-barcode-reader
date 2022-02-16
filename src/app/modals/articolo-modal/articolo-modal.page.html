@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Articolo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Barcode</ion-label>
+    <ion-input [value]="article.Barcode" disabled=""></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Quantita</ion-label>
+    <ion-input [(ngModel)]="article.Quantita" [value]="article.Quantita"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Urgente</ion-label>
+    <ion-checkbox [(ngModel)]="article.Urgente" [value]="article.Urgente"></ion-checkbox>
+  </ion-item>
+  <div class="ion-padding" style="display: flex;">
+    <ion-button style="width: 50%;" color="danger"(click)="closeModal()">Annula</ion-button>
+    <ion-button style="width: 50%;" color="success" (click)="saveArticle()" >Salva</ion-button>
+  </div>
+
+</ion-content>

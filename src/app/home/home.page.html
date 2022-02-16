@@ -1,0 +1,74 @@
+<ion-header *ngIf="currentPlatform=='web'">
+    <ion-toolbar>
+      <ion-title>
+        Barecode Scanner
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content *ngIf="currentPlatform=='web'">    
+    <div id="qr-reader" style="display: inline-block;"></div>
+  
+    <ng-container *ngIf="items.length==0 else cartItems">
+      <div style="text-align: center;">
+        <p style="color: red;">Aggiungi articolo con lo SCAN di barcode</p>
+      </div>
+    </ng-container>
+
+
+    <ng-template #cartItems>
+      <ion-item *ngFor="let item of items" [hidden]="scanActive">
+        <ion-icon name="cube-outline" slot="start"></ion-icon>
+        <ion-label>{{item.Barcode}}</ion-label>
+        <ion-icon name="create-outline" slot="end" (click)="editArticle(item)"></ion-icon>
+        <ion-icon name="trash-outline" color="danger" slot="end" (click)="deleteArticle(item.Barcode)"></ion-icon>
+      </ion-item>
+    </ng-template>
+
+    <ion-row class="scanner-buttons" [hidden]="!scanActive">
+      <ion-col class="ion-no-padding">
+        <ion-button expand="full" (click)="stopScannerOnWeb()">stop</ion-button>
+      </ion-col>
+    </ion-row>
+    <div class="scan-box" [hidden]="!scanActive"></div>
+  </ion-content>
+
+
+
+
+
+  <ion-header *ngIf="currentPlatform=='app'" [hidden]="scanActive">
+    <ion-toolbar>
+      <ion-title>
+        Barecode Scanner
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content *ngIf="currentPlatform=='app'" [style.--background]="scanActive ? '#00000000' : '#fff'">
+    <ion-button expand="full" (click)="startScanner()" [hidden]="scanActive"><ion-icon slot="start" name="barcode-outline"></ion-icon>Scan</ion-button>
+    <ng-container *ngIf="items.length==0 else cartItems">
+      <div style="text-align: center;">
+        <p style="color: red;" [hidden]="scanActive">Aggiungi articolo con lo SCAN di barcode</p>
+      </div>
+    </ng-container>
+    
+    <ng-template #cartItems>
+      <ion-item *ngFor="let item of items" [hidden]="scanActive">
+        <ion-icon name="cube-outline" slot="start"></ion-icon>
+        <ion-label>{{item.Barcode}}</ion-label>
+        <ion-icon name="create-outline" slot="end" (click)="editArticle(item)"></ion-icon>
+        <ion-icon name="trash-outline" color="danger" slot="end" (click)="deleteArticle(item.Barcode)"></ion-icon>
+      </ion-item>
+    </ng-template>
+
+    <ion-row class="scanner-buttons" [hidden]="!scanActive">
+      <ion-col class="ion-no-padding">
+        <ion-button expand="full" (click)="stopScanner()" [hidden]="!scanActive">stop</ion-button>
+      </ion-col>
+    </ion-row>
+    <div class="scan-box" [hidden]="!scanActive"></div>
+  </ion-content>
+ 
+
